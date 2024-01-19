@@ -15,7 +15,7 @@ export const signup = async( req , res ) => {
         
     } catch (error) {
         res.json({
-            message: "error in sign up",
+            message: error.message,
             success: false
         })
         console.log('error occured whilie sign up ', error)
