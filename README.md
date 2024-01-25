@@ -1,5 +1,6 @@
-Home page
+Images related to the project. Website link will be added soon
 
+Home page
 ![home1](https://github.com/alwaysAnsh/Real-Estate/assets/121539688/be3562b1-25dd-41b5-ae4c-01ad4bc669bb)
 
 Sign-up
