@@ -38,7 +38,7 @@ const SignIn = () => {
         dispatch(signInFailure(data.message))
         return;
       }
-      console.log(data)
+      console.log('sign-in data : ', data)
       setFormData({})
       // setLoading(false)
       dispatch(signInSuccess(data))
