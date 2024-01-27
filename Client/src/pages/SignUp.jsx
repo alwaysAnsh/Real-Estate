@@ -20,6 +20,7 @@ const SignUp = () => {
   console.log(formData)
 
   const handleOnSubmit = async(e)=>{
+    
     setLoading(true)
     e.preventDefault();
     const response = await fetch('/api/auth/signup', {

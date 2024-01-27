@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CiSearch } from "react-icons/ci";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 const Header = () => {
 
     const {currentUser} = useSelector((state) => state.user )
-
-
+    // useEffect(()=> {
+    //     console.log("current User : ", currentUser.rest.avatar)
+    // },[currentUser])
   return (
     <header className='bg-slate-200 shadow-md'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3' >
@@ -34,7 +35,7 @@ const Header = () => {
                 </Link>
                 <Link  to='/profile'>
                     {
-                        currentUser ? (<img src={currentUser.avatar} className='rounded-full w-14 ' ></img>)
+                        currentUser ? (<img src={"https://thumbs.dreamstime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg"} className='rounded-full w-12 h-12 ' ></img>)
                          :(<li className=' text-slate-700 hover:underline cursor-pointer' >Sign In</li>)
                     }
                 </Link>
