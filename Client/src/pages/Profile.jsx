@@ -110,6 +110,22 @@ const Profile = () => {
 
   }
 
+  const handleSignOut = async () => {
+    try {
+      console.log("sign out handle hit")
+      dispatch(deleteUserStart())
+      const res = await fetch('/api/user/signout')
+      const data = await res.json();
+      if(data.success === false ){
+        dispatch(deleteUserFailure(data.message))
+      }
+      dispatch(deleteUserSuccess(data))
+      navigate('/signin')
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto' >
       <h1 className='text-3xl font-bold text-center my-7' >Profile</h1>
@@ -155,7 +171,7 @@ const Profile = () => {
 
       <div className='flex justify-between mt-5' >
         <span className='text-red-500 cursor-pointer' onClick={handleDeleteUser} >Delete account</span>
-        <span className='text-red-500 cursor-pointer' >Sign Out</span>
+        <span className='text-red-500 cursor-pointer' onClick={handleSignOut}>Sign Out</span>
       </div>
     </div>
   )

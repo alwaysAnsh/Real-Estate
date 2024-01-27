@@ -25,26 +25,30 @@ const SignIn = () => {
   const handleOnSubmit = async(e)=>{
     // setLoading(true)
     
-      dispatch(signInStart());
-    e.preventDefault();
-    const response = await fetch('/api/auth/signin', {
-      method: 'POST',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    
-      const data = await response.json();
-      if(data.success === false){
-        dispatch(signInFailure(data.message))
-        return;
+      try {
+          dispatch(signInStart());
+      e.preventDefault();
+      const response = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      
+        const data = await response.json();
+        if(data.success === false){
+          dispatch(signInFailure(data.message))
+          return;
+        }
+        console.log('sign-in data : ', data)
+        setFormData({})
+        // setLoading(false)
+        dispatch(signInSuccess(data))
+        navigate('/')
+      } catch (error) {
+        dispatch(signInFailure(error.message))
       }
-      console.log('sign-in data : ', data)
-      setFormData({})
-      // setLoading(false)
-      dispatch(signInSuccess(data))
-      navigate('/')
     
     
   }
