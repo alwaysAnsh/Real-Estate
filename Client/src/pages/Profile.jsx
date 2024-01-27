@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase'
-import { updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice'
+import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Profile = () => {
 
@@ -13,6 +14,7 @@ const Profile = () => {
   const [fileUploadError, setFileUploadError] = useState(false)
   const [formData, setFormData ] = useState({})
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
   // console.log('logging the file',file)
@@ -86,6 +88,28 @@ const Profile = () => {
     }
   }
 
+  const handleDeleteUser = async() => {
+    console.log("delete user handle hit")
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser.rest._id}`,{
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      console.log("data after delete: ", data)
+      if(data.success === false ){
+        dispatch(deleteUserFailure(data.message))
+        return ;
+      }
+      dispatch(deleteUserSuccess(data))
+      navigate('/signin')
+
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message))
+    }
+
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto' >
       <h1 className='text-3xl font-bold text-center my-7' >Profile</h1>
@@ -130,7 +154,7 @@ const Profile = () => {
 
 
       <div className='flex justify-between mt-5' >
-        <span className='text-red-500 cursor-pointer' >Delete account</span>
+        <span className='text-red-500 cursor-pointer' onClick={handleDeleteUser} >Delete account</span>
         <span className='text-red-500 cursor-pointer' >Sign Out</span>
       </div>
     </div>

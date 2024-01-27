@@ -8,6 +8,7 @@ const SignIn = () => {
 
   const [formData, setFormData ] = useState({})
   const {loading, error } = useSelector((state) => state.user)
+  // const [err, setError] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,7 +24,8 @@ const SignIn = () => {
 
   const handleOnSubmit = async(e)=>{
     // setLoading(true)
-    dispatch(signInStart());
+    
+      dispatch(signInStart());
     e.preventDefault();
     const response = await fetch('/api/auth/signin', {
       method: 'POST',
@@ -43,6 +45,7 @@ const SignIn = () => {
       // setLoading(false)
       dispatch(signInSuccess(data))
       navigate('/')
+    
     
   }
 
@@ -72,6 +75,11 @@ const SignIn = () => {
           <span className='text-blue-700' >Sign Up</span>
         </Link>
       </div>
+      {/* <p className='text-center' >
+        {
+          error   ? (<span className='text-red-700 font-bold' >{error} </span>) : ('')
+        }
+      </p> */}
     </div>
   )
 }
