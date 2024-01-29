@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import userRoutes from '../api/routes/user.routes.js'
 import authRoutes from '../api/routes/auth.routes.js'
 import cookieParser from 'cookie-parser';
+import listingRoutes from '../api/routes/listing.routes.js'
 dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(()=>{
@@ -25,6 +26,7 @@ app.listen(3000, ()=>{
 
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/listing',listingRoutes)
 
 //creating a middleware
 app.use((err, req, res, next ) => {
