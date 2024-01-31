@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase'
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Profile = () => {
 
@@ -35,7 +35,7 @@ const Profile = () => {
     }
   }, [file])
 
-   /********************************FILE UPLOAD ******************************** */
+   /********************************FILE UPLOAD FUNCTION START ******************************** */
 
   const handleFileUpload = (file)=>{
     const storage = getStorage(app);
@@ -165,6 +165,9 @@ const Profile = () => {
         onChange = {handleOnChange} />
         
         <button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' >Update</button>
+        <Link to={'/create-listing'} className='bg-green-700  text-white p-3 rounded-lg uppercase text-center hover:opacity-95 ' >
+          Create Listing
+        </Link>
         
       </form>
 

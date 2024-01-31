@@ -24,7 +24,7 @@ const listingSchema = new mongoose.Schema({
     bathrooms: {
         type: Number,
         required: true,
-    }
+    },
     bedrooms: {
         type: Number,
         required: true,
@@ -58,3 +58,5 @@ const listingSchema = new mongoose.Schema({
 
 
 const Listing = mongoose.model('Listing', listingSchema)
+
+export default Listing
