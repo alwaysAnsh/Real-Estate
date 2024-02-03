@@ -5,6 +5,7 @@ import { app } from '../firebase'
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice'
 import { Link, useNavigate } from 'react-router-dom'
 
+
 const Profile = () => {
 
   const {currentUser} = useSelector((state) => state.user)
@@ -13,6 +14,8 @@ const Profile = () => {
   const [filePercentage, setFilePercentage ] = useState(0)
   const [fileUploadError, setFileUploadError] = useState(false)
   const [formData, setFormData ] = useState({})
+  const [showListingsError, setShowListingsError] = useState(false)
+  const [userListings, setUserListings ] = useState([])
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -126,6 +129,25 @@ const Profile = () => {
     }
   }
 
+  const handleShowListings = async() => {
+    try {
+      console.log("handle show listings clicked")
+      setShowListingsError(false);
+      console.log("currentuser ki id is : ", currentUser.rest._id)
+      const res = await fetch(`/api/user/listing/${currentUser.rest._id}`)
+      const data = await res.json();
+      console.log("data aa gya ji ;", data)
+      if(data.success === false) {
+        setShowListingsError(true);
+        return;
+      }
+      setUserListings(data)
+    } catch (error) {
+      console.log("inside catch block")
+      setShowListingsError(true)
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto' >
       <h1 className='text-3xl font-bold text-center my-7' >Profile</h1>
@@ -155,13 +177,13 @@ const Profile = () => {
         placeholder='email'
         defaultValue={currentUser.email}
         id='email'
-        className='border p-3 rounded-lg'
+        className='border p-3 rounded-lg'                              
         onChange = {handleOnChange} />
         <input 
         type="password"
         placeholder='password'
         id='password'
-        className='border p-3 rounded-lg'
+        className='border p-3 rounded-lg' 
         onChange = {handleOnChange} />
         
         <button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' >Update</button>
@@ -176,6 +198,39 @@ const Profile = () => {
         <span className='text-red-500 cursor-pointer' onClick={handleDeleteUser} >Delete account</span>
         <span className='text-red-500 cursor-pointer' onClick={handleSignOut}>Sign Out</span>
       </div>
+
+      <button  type='button' className='text-green-700 w-full ' onClick={handleShowListings} > Show Listings</button>
+      <p className='text-red-700 mt-5' >{showListingsError ? 'error showing listings' : ""}</p>
+      
+      {
+        userListings && userListings.length>0 && 
+        <div className='flex flex-col gap-5' >
+          <h1 className='text-center font-extrabold font-serif text-3xl mt-8 mb-2 text-amber-800' >Your Listings</h1>
+          {userListings.map((listing) => (
+          <div  key={listing._id} className=" gap-4 flex justify-between p-3 border border-slate-300 items-center rounded">
+
+            <Link to={`/listing/${listing._id} `} >
+              <img  className='h-16 w-16 object-contain rounded-lg ' src={listing.imageUrls[0]} alt="listing cover" />  
+            </Link>
+
+            <Link  className='flex-1 font-semibold text-normal text-slate-700  hover:underline truncate' to={`/listing/${listing._id} `} >
+
+            <p className=' ' >{listing.name}</p>
+
+            </Link>
+
+            <div className='flex flex-col gap-3' >
+              <button className='text-red-800  font-semibold uppercase' >Delete</button>
+              <button className='text-green-800 uppercase' >Edit</button>
+            </div>
+            
+            
+
+          </div>
+        ))}
+        </div>
+      }
+
     </div>
   )
 }

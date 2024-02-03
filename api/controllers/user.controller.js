@@ -63,6 +63,7 @@ export const signOut = async (req, res, next ) => {
 export const getUserListings = async(req, res, next ) => {
         if(req.user.id === req.params.id ) {
             try {
+                console.log("inside api of get user listing")
                 const listing = await Listing.find({userRef: req.params.id })
                 res.status(200).json(listing)
             } catch (error) {
