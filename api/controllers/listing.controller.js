@@ -40,7 +40,7 @@ export const updateListing = async (req, res, next ) => {
     if(!listing){
         return next(errorHandler(404,'user not found with this listing id '))
     }
-    if(req.user.id !== req.params.id ){
+    if(req.user.id !== listing.userRef ){
         return next(errorHandler(401,'You can only update your own listing '))
     }
     try {
@@ -53,6 +53,22 @@ export const updateListing = async (req, res, next ) => {
             success: true,
             message: 'listing updated successfully ',
             updatedListing
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getListing = async(req, res, next ) => {
+    try {
+        const listing = await Listing.findById(req.params.id);
+        if(!listing){
+            return next(errorHandler(404,'Listing not found'))
+        }
+        res.status(200).json({
+            success: true,
+            message: "details of listing fetched successfully",
+            listing,
         })
     } catch (error) {
         next(error)
