@@ -67,7 +67,7 @@ const Profile = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log("update button cliked!!")
-    console.log("id of user is : ", currentUser.rest._id);
+    console.log("id of user is : ", currentUser);
     try {
       dispatch(updateStart())
       const res = await fetch(`/api/user/update/${currentUser.rest._id} `,{
@@ -87,6 +87,7 @@ const Profile = () => {
       dispatch(updateSuccess(data))
 
     } catch (error) {
+      console.log("inside catch block of update button")
       dispatch(updateFailure(error.message))
     }
   }
@@ -173,7 +174,7 @@ const Profile = () => {
 
       <form   onSubmit={handleOnSubmit} className='flex flex-col gap-4' >
         <input  onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept='image/*'/>
-        <img  onClick={() => fileRef.current.click()} src={ formData.avatar || currentUser.avatar} alt="ProfileImg" className=' self-center border-2 rounded-full h-24 w-24 object-cover cursor-pointer ' />
+        <img  onClick={() => fileRef.current.click()} src={ formData.avatar || currentUser.rest.avatar} alt="ProfileImg" className=' self-center border-2 rounded-full h-24 w-24 object-cover cursor-pointer ' />
         <p>
           {
             fileUploadError ? (<span className='text-red-700 ' >Error Image Upload (image must be less than 2 mb)</span> ) : filePercentage > 0 && filePercentage < 100 ? (<span className='text-slate-700' >{`Uploading ${filePercentage}%` }</span>) : filePercentage === 100 ? (
@@ -184,7 +185,7 @@ const Profile = () => {
         <input 
         type="text"
         placeholder='username'
-        defaultValue={currentUser.username}
+        defaultValue={currentUser.rest.username}
         id='username'
         className='border p-3 rounded-lg'
         onChange = {handleOnChange} />
@@ -192,7 +193,7 @@ const Profile = () => {
         <input 
         type="email"
         placeholder='email'
-        defaultValue={currentUser.email}
+        defaultValue={currentUser.rest.email}
         id='email'
         className='border p-3 rounded-lg'                              
         onChange = {handleOnChange} />

@@ -22,11 +22,11 @@ export const updateUser = async (req,res,next) => {
                 avatar: req.body.avatar,
             }
         }, {new: true})
-        console.log("user updated!! 1 step")
+        
         //now separate the password from the rest
 
         const {password, ...rest } = updateUser._doc 
-        return res.status(200).json(rest)
+        return res.status(200).json({rest})
 
     } catch (error) {
         console.log("catch ke andar")

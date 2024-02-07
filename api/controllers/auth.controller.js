@@ -50,7 +50,7 @@ export const google = async (req, res, next ) => {
             const {password: pass, ...rest } = user._doc
             return res.cookie('access_token', token, {httpOnly: true})
             .status(200)
-            .json(rest)
+            .json({rest,token})
         }else{
             //create a new user
             const generatedPassword = Math.random().toString(36).slice(-8);
