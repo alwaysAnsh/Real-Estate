@@ -1,4 +1,4 @@
-Images related to the project. Website link will be added soon
+Images related to the project.
 
 Home page
 ![home1](https://github.com/alwaysAnsh/Real-Estate/assets/121539688/be3562b1-25dd-41b5-ae4c-01ad4bc669bb)
@@ -15,5 +15,4 @@ Profile
 Create Listing Page
 ![create_listing](https://github.com/alwaysAnsh/Real-Estate/assets/121539688/1281f1ec-e313-4f36-9019-c27ab69ee3bf)
 
-
-OAuth deletion and sign out
+For any queries, reach me out at anshj9y@gmail.com
