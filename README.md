@@ -1,5 +1,11 @@
 Images related to the project.
 
+
+video preview >>>
+
+https://github.com/alwaysAnsh/Real-Estate/assets/121539688/9edc410f-2c84-42fa-b1de-576a064bc9b2
+
+
 Home page
 ![home1](https://github.com/alwaysAnsh/Real-Estate/assets/121539688/be3562b1-25dd-41b5-ae4c-01ad4bc669bb)
 
